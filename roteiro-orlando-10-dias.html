@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiro Orlando — 10 Dias</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .header{background:linear-gradient(135deg,#0f1729 0%,#162040 50%,#1a1040 100%);padding:44px 20px 32px;text-align:center;border-bottom:1px solid #1e2d4a;position:relative;overflow:hidden}
+  .header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(59,130,246,0.12) 0%,transparent 60%),radial-gradient(ellipse at 70% 40%,rgba(139,92,246,0.08) 0%,transparent 50%)}
+  .header h1{font-size:1.9rem;font-weight:800;background:linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;letter-spacing:-0.5px}
+  .header .sub{color:#7489a8;margin-top:6px;font-size:0.88rem;position:relative}
+  .header .dates{color:#94a3b8;margin-top:10px;font-size:0.82rem;position:relative;background:rgba(255,255,255,0.04);display:inline-block;padding:6px 16px;border-radius:20px;border:1px solid rgba(255,255,255,0.06)}
+  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;padding:16px 16px;max-width:900px;margin:0 auto}
+  .s-card{background:rgba(255,255,255,0.03);border:1px solid #1e2d4a;border-radius:12px;padding:12px 14px;text-align:center}
+  .s-card .num{font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#60a5fa,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .s-card .label{font-size:0.72rem;color:#64748b;text-transform:uppercase;letter-spacing:0.8px;margin-top:2px}
+  .container{max-width:900px;margin:0 auto;padding:8px 14px 32px}
+  .day-card{background:#111827;border-radius:14px;margin-bottom:14px;overflow:hidden;border:1px solid #1e293b;transition:all 0.2s}
+  .day-card:hover{border-color:#2d3f5a}
+  .day-header{padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+  .day-badge{min-width:52px;height:52px;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.3px;color:#fff}
+  .day-badge .num{font-size:1.15rem;line-height:1;margin-top:1px}
+  .bg-sea{background:linear-gradient(135deg,#0284c7,#0369a1)}.bg-epic{background:linear-gradient(135deg,#dc2626,#b91c1c)}.bg-mk{background:linear-gradient(135deg,#7c3aed,#6d28d9)}.bg-ak{background:linear-gradient(135deg,#059669,#047857)}.bg-ioa{background:linear-gradient(135deg,#ea580c,#c2410c)}.bg-usf{background:linear-gradient(135deg,#d97706,#b45309)}.bg-shop{background:linear-gradient(135deg,#10b981,#059669)}.bg-arrive{background:linear-gradient(135deg,#f59e0b,#d97706)}.bg-return{background:linear-gradient(135deg,#64748b,#475569)}
+  .day-info{flex:1;min-width:0}
+  .day-title{font-size:1.05rem;font-weight:700;color:#f1f5f9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .day-sub{font-size:0.76rem;color:#586882;margin-top:2px}
+  .day-dist{font-size:0.7rem;color:#64748b;background:rgba(255,255,255,0.04);padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+  .arrow{color:#475569;font-size:0.9rem;transition:transform 0.3s;flex-shrink:0}
+  .day-card.open .arrow{transform:rotate(180deg)}
+  .day-content{max-height:0;overflow:hidden;transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1)}
+  .day-card.open .day-content{max-height:8000px}
+  .day-body{padding:0 18px 20px;border-top:1px solid #1a2436}
+  .tl{position:relative;padding-left:26px;margin-top:14px}
+  .tl::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:#1e293b;border-radius:2px}
+  .ti{position:relative;margin-bottom:16px}.ti:last-child{margin-bottom:0}
+  .dot{position:absolute;left:-21px;top:6px;width:10px;height:10px;border-radius:50%;border:2px solid #111827}
+  .dot-go{background:#3b82f6}.dot-ride{background:#8b5cf6}.dot-food{background:#f59e0b}.dot-show{background:#ec4899}.dot-tip{background:#10b981}.dot-photo{background:#06b6d4}
+  .ti-time{font-size:0.72rem;font-weight:600;color:#4b8be0;letter-spacing:0.3px}
+  .ti-title{font-weight:600;font-size:0.9rem;color:#f1f5f9;margin-top:1px}
+  .ti-desc{font-size:0.8rem;color:#8494a7;margin-top:3px;line-height:1.55}
+  .box{border-radius:10px;padding:12px 14px;margin-top:14px;font-size:0.8rem;line-height:1.55}
+  .box strong{display:block;margin-bottom:3px}
+  .box-tip{background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);color:#6ee7b7}.box-tip strong{color:#34d399}
+  .box-food{background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);color:#fcd34d}.box-food strong{color:#fbbf24}
+  .sep{font-size:0.75rem;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:1.5px;text-align:center;padding:18px 0 6px;display:flex;align-items:center;gap:12px}
+  .sep::before,.sep::after{content:'';flex:1;height:1px;background:#1e293b}
+  .rest-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:10px}
+  .rest-card{background:#0d1117;border:1px solid #1e293b;border-radius:10px;padding:14px}
+  .rest-card .type{font-size:0.68rem;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:0.8px}
+  .rest-card h4{color:#e2e8f0;font-size:0.88rem;margin:3px 0}
+  .rest-card p{color:#7489a8;font-size:0.77rem;line-height:1.5}
+  .footer{text-align:center;padding:28px 20px;color:#334155;font-size:0.75rem;border-top:1px solid #1a2030}
+  @media(max-width:600px){.header h1{font-size:1.5rem}.summary{grid-template-columns:repeat(3,1fr);padding:12px}.day-header{padding:14px}.day-body{padding:0 14px 16px}.day-dist{display:none}.day-title{font-size:0.95rem}}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🏰 Roteiro Orlando — 10 Dias</h1>
+  <div class="sub">Paolo, Karol, Sayo, Marcos, Fefe & Ro</div>
+  <div class="dates">📅 Sexta 10/04 → Domingo 19/04 &nbsp;•&nbsp; 📍 2440 Sweetwater Club Circle, Kissimmee</div>
+</div>
+<div class="summary">
+  <div class="s-card"><div class="num">6</div><div class="label">Pessoas</div></div>
+  <div class="s-card"><div class="num">6</div><div class="label">Parques</div></div>
+  <div class="s-card"><div class="num">2</div><div class="label">Outlets</div></div>
+  <div class="s-card"><div class="num">10</div><div class="label">Dias</div></div>
+</div>
+<div class="container">
+<div class="sep">Horários de Referência</div>
+<div style="background:#111827;border:1px solid #1e293b;border-radius:14px;padding:16px 18px;margin-bottom:20px">
+<table style="width:100%;border-collapse:collapse;font-size:0.82rem">
+<tr style="border-bottom:1px solid #1e293b"><td style="padding:8px;color:#a78bfa;font-weight:600">⏰ Tipo de dia</td><td style="padding:8px;color:#a78bfa;font-weight:600">Acordar</td><td style="padding:8px;color:#a78bfa;font-weight:600">Sair de casa</td><td style="padding:8px;color:#a78bfa;font-weight:600">Café</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#e2e8f0;font-weight:600">🎢 Dias de parque</td><td style="padding:8px;color:#94a3b8">~06h30</td><td style="padding:8px;color:#94a3b8">~07h15 – 08h30</td><td style="padding:8px;color:#94a3b8">Em casa (rápido)</td></tr>
+<tr><td style="padding:8px;color:#e2e8f0;font-weight:600">🛍️ Dias de compras</td><td style="padding:8px;color:#94a3b8">~08h30</td><td style="padding:8px;color:#94a3b8">~09h30</td><td style="padding:8px;color:#94a3b8">Em casa (tranquilo)</td></tr>
+</table>
+</div>
+
+<!-- ========== DIA 1 — 10/04 SEX ========== -->
+<div class="day-card open" id="d1">
+<div class="day-header" onclick="t('d1')">
+  <div class="day-badge bg-arrive"><span>10/04</span><span class="num">D1</span></div>
+  <div class="day-info"><div class="day-title">✈️ Chegada + Compras + Disney Springs</div><div class="day-sub">Sexta • Chegada ~16h MCO • Jantar T-Rex 22h30</div></div>
+  <div class="day-dist">🚗 ~55 km</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~16h00</div><div class="ti-title">Aeroporto MCO — Retirar carro</div><div class="ti-desc">Retirem o carro alugado e sigam para a casa.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~17h00</div><div class="ti-title">Casa — Deixar malas</div><div class="ti-desc">MCO → Casa: ~25 min (30 km). Larguem as malas e já saiam.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~17h30</div><div class="ti-title">🛒 Walmart Supercenter</div><div class="ti-desc">4444 W Vine St, Kissimmee (~10 min da casa). Água, snacks pros parques, itens básicos, café da manhã pra semana toda. Merchandise Disney barata! Fecha 23h.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~18h30</div><div class="ti-title">🛍️ TJ Maxx</div><div class="ti-desc">2551 Osceola Pkwy (~10 min do Walmart). Roupas, bolsas, acessórios com desconto. Fecha 21h30.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~19h30</div><div class="ti-title">📱 Mall at Millenia — Retirar iPhone</div><div class="ti-desc">4200 Conroy Rd (~25 min da TJ Maxx). Apple Store dentro do shopping. Fecha 21h.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~21h00</div><div class="ti-title">Disney Springs — Estacionar no Lime Garage</div><div class="ti-desc">Millenia → Disney Springs: ~15 min. Lime Garage é o mais perto do T-Rex.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~21h15</div><div class="ti-title">🍩 Doces antes do jantar!</div><div class="ti-desc">Vivoli il Gelato: Bomboloni de Nutella (~$5.80) e gelato — tudo pra levar na mão! Amorette's Patisserie: doces artísticos (Mouse Cake!) — também pra viagem. Ambos abertos até 23h.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">22h15</div><div class="ti-title">🦖 T-Rex Cafe — Jantar (reserva 22h30)</div><div class="ti-desc">Chegar 15 min antes. Restaurante temático com dinossauros animatrônicos. A cada ~15 min rola um "meteor shower"! ~$25-40/pessoa.</div></div>
+</div>
+<div class="box box-tip"><strong>💡 Outro Walmart (opção)</strong>Walmart Supercenter — 3250 Vineland Rd, Kissimmee (~12 min da casa). Perto do outlet Vineland, aberto até meia-noite.</div>
+</div></div></div>
+
+<!-- ========== DIA 2 — 11/04 SÁB — SEAWORLD ========== -->
+<div class="day-card" id="d2">
+<div class="day-header" onclick="t('d2')">
+  <div class="day-badge bg-sea"><span>11/04</span><span class="num">D2</span></div>
+  <div class="day-info"><div class="day-title">🐬 SeaWorld Orlando</div><div class="day-sub">Sábado • Acordar 06h30 • Sair 08h15</div></div>
+  <div class="day-dist">🚗 ~20 min</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~08h15</div><div class="ti-title">Saída de casa</div><div class="ti-desc">Casa → SeaWorld: ~20 min (18 km). Objetivo: chegar na abertura às 9h. Sábado é dia cheio!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">09h00</div><div class="ti-title">🏄 Pipeline: The Surf Coaster</div><div class="ti-desc">Montanha-russa de pé! Perto da entrada — vá direto na abertura.</div></div>
+  <div class="ti"><div class="dot dot-show"></div><div class="ti-time">~10h00</div><div class="ti-title">🐋 Orca Encounter (~30 min)</div><div class="ti-desc">Show das orcas! Horário tipicamente ~10h ou ~12h (cheque app). Chegue 15 min antes. Soak Zone = molha!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~10h45</div><div class="ti-title">❄️ Ice Breaker</div><div class="ti-desc">Montanha-russa com lançamento pra frente e pra trás.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~11h30</div><div class="ti-title">🦈 Mako</div><div class="ti-desc">A melhor montanha-russa do parque! 200 pés, 73 mph. Fila ~40 min.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~12h15</div><div class="ti-title">🦈 Shark Encounter</div><div class="ti-desc">Túnel subaquático com tubarões. Walk-through, sem fila.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~12h45</div><div class="ti-title">🍽️ Almoço (opcional — não recomendado!)</div><div class="ti-desc">Pra não perder tempo, levem lanches de casa e comam na fila ou num lugar bonito do parque. Se quiserem comprar: Voyager's Smokehouse (BBQ) ou Expedition Café.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~13h45</div><div class="ti-title">🐧 Penguin Trek</div><div class="ti-desc">Ride temática + colônia de pinguins reais no final!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~14h30</div><div class="ti-title">🐙 Kraken</div><div class="ti-desc">Montanha-russa floorless — sem chão! Loops e inversões.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~15h15</div><div class="ti-title">💦 Journey to Atlantis</div><div class="ti-desc">Passeio de barco com queda — MOLHA BASTANTE!</div></div>
+  <div class="ti"><div class="dot dot-show"></div><div class="ti-time">~16h00</div><div class="ti-title">🐬 Dolphin Adventures (~25 min)</div><div class="ti-desc">Show dos golfinhos! Horário tipicamente ~14h ou ~16h (cheque app).</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~16h45</div><div class="ti-title">🦅 Manta</div><div class="ti-desc">Montanha-russa voadora — de bruços! Sensação incrível.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~17h30 – 18h30</div><div class="ti-title">Repetir favoritas + aquários</div><div class="ti-desc">Repitam Mako ou Pipeline. Infinity Falls também molha bastante.</div></div>
+</div>
+<div class="box box-food"><strong>🍽️ Opção 1 — Giordano's Pizza</strong>6203 W Sand Lake Rd (~20 min). Deep dish de Chicago. Peçam ~40 min antes! ~$20-30/pessoa pra dividir entre 6.</div>
+<div class="box box-food"><strong>🍽️ Opção 2 — Olive Garden (mais barato!)</strong>1604 W Osceola Pkwy, Kissimmee (~10 min da casa). Breadsticks ilimitados + sopa/salada! ~$15-20/pessoa.</div>
+<div class="box box-tip"><strong>💡 Dica</strong>Baixe o app do SeaWorld pra ver filas e horários dos shows em tempo real.</div>
+</div></div></div>
+
+<!-- ========== DIA 3 — 12/04 DOM — EPIC UNIVERSE ========== -->
+<div class="day-card" id="d3">
+<div class="day-header" onclick="t('d3')">
+  <div class="day-badge bg-epic"><span>12/04</span><span class="num">D3</span></div>
+  <div class="day-info"><div class="day-title">🌟 Universal Epic Universe</div><div class="day-sub">Domingo • Acordar 06h30 • Sair 08h30</div></div>
+  <div class="day-dist">🚗 ~20 min</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~08h30</div><div class="ti-title">Saída de casa</div><div class="ti-desc">Epic Universe: 1001 Epic Blvd (~20 min, 22 km). Cheguem ~1h antes da abertura!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">10h00</div><div class="ti-title">🍄 Mario Kart: Bowser's Challenge — PRIORIDADE!</div><div class="ti-desc">Super Nintendo World! Vá DIRETO — fila explode depois das 11h. Power-Up Band (~$40) pra coletar moedas.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~10h45</div><div class="ti-title">⛏️ Mine-Cart Madness (Donkey Kong)</div><div class="ti-desc">Montanha-russa do Donkey Kong. Divertida pra todo mundo!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~11h30</div><div class="ti-title">🏎️ Stardust Racers</div><div class="ti-desc">Montanha-russa dupla no Celestial Park. A mais popular! Nesse horário a fila já estará menor.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~12h30</div><div class="ti-title">🍽️ Almoço (opcional — não recomendado!)</div><div class="ti-desc">Pra não perder tempo, levem lanches de casa e comam na fila ou num cantinho do parque. Se quiserem comprar: Toadstool Cafe (Nintendo World — reserva!) ou Great Hall (Isle of Berk).</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~13h30</div><div class="ti-title">⚡ Harry Potter — Ministry of Magic</div><div class="ti-desc">Área HP ambientada em Paris! Experiência exclusiva do Epic Universe.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~14h30</div><div class="ti-title">🐉 How to Train Your Dragon — Montanha-russa</div><div class="ti-desc">Isle of Berk! Cenário lindo e nostálgico.</div></div>
+  <div class="ti"><div class="dot dot-show"></div><div class="ti-time">~15h15</div><div class="ti-title">🐉 How to Train Your Dragon — Show ao vivo</div><div class="ti-desc">Show com efeitos especiais e dragões! Cheque horário no app.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~16h00</div><div class="ti-title">🧟 Frankenstein (Dark Universe)</div><div class="ti-desc">Área Dark Universe com tema de monstros clássicos.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~16h45</div><div class="ti-title">🐺 Curse of the Werewolf</div><div class="ti-desc">Dark Universe — montanha-russa/simulador do Lobisomem.</div></div>
+  <div class="ti"><div class="dot dot-photo"></div><div class="ti-time">~17h30</div><div class="ti-title">📸 Encontro com Banguela (Toothless)</div><div class="ti-desc">Meet & greet na Isle of Berk. Cheque horários no app.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~18h – 20h</div><div class="ti-title">Repetir favoritas + parque à noite</div><div class="ti-desc">Nintendo World e Isle of Berk ficam lindas à noite!</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~20h30</div><div class="ti-title">🍔 Jantar — Five Guys</div><div class="ti-desc">3261 Vineland Rd, Kissimmee (~20 min do Epic). Burgers enormes, cajun fries pra dividir. ~$15-18/pessoa. Aberto até 23h.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~21h30</div><div class="ti-title">🍩 Krispy Kreme!</div><div class="ti-desc">4080 Millenia Blvd (~15 min do Five Guys). Fecha 22h no domingo — cheguem antes! Luz "HOT NOW" acesa = donuts fresquinhos.</div></div>
+</div>
+<div class="box box-tip"><strong>💡 Estratégia Epic</strong>Começar por Nintendo World na abertura (todos vão pra Stardust, então Nintendo fica mais vazio). Depois Stardust ~11h30. Depois HP. Leve garrafa d'água.</div>
+</div></div></div>
+
+<!-- ========== DIA 4 — 13/04 SEG — MAGIC KINGDOM ========== -->
+<div class="day-card" id="d4">
+<div class="day-header" onclick="t('d4')">
+  <div class="day-badge bg-mk"><span>13/04</span><span class="num">D4</span></div>
+  <div class="day-info"><div class="day-title">🏰 Magic Kingdom</div><div class="day-sub">Segunda • Acordar 06h30 • Sair 07h15 • Pizza em casa 🍕</div></div>
+  <div class="day-dist">🚗 ~25 min</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~07h15</div><div class="ti-title">Saída de casa</div><div class="ti-desc">MK abre 9h (seg). Estacionamento no TTC + ferry/monorail = ~30-40 min extras. Chegue 8h no estacionamento. Segunda = melhor dia pro MK!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">09h00</div><div class="ti-title">🐸 Tiana's Bayou Adventure</div><div class="ti-desc">Antiga Splash Mountain, tema Princesa e o Sapo. Frontierland. Vá direto na abertura!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~09h40</div><div class="ti-title">🏴‍☠️ Pirates of the Caribbean</div><div class="ti-desc">Passeio de barco clássico. Adventureland, pertinho. Fila ~20 min.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~10h10</div><div class="ti-title">👻 Haunted Mansion</div><div class="ti-desc">Mansão assombrada clássica. Liberty Square. Fila ~25 min.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~10h50</div><div class="ti-title">⛏️ Seven Dwarfs Mine Train</div><div class="ti-desc">Montanha-russa suave dos 7 Anões. Fantasyland. Muito popular — vá logo cedo!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~11h30</div><div class="ti-title">🍯 The Many Adventures of Winnie the Pooh</div><div class="ti-desc">Ride suave e encantadora. Fantasyland, perto do Mine Train.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~12h00</div><div class="ti-title">🧜‍♀️ Under the Sea — Journey of the Little Mermaid</div><div class="ti-desc">Passeio da Ariel com cenas do filme. Fantasyland.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~12h30</div><div class="ti-title">✨ Peter Pan's Flight</div><div class="ti-desc">Voo sobre Londres! Fila ~50 min. Fantasyland.</div></div>
+  <div class="ti"><div class="dot dot-show"></div><div class="ti-time">~14h00</div><div class="ti-title">🎪 Festival of Fantasy Parade</div><div class="ti-desc">Desfile principal! Horário geralmente ~14h ou ~15h (cheque app). Assistam da Main Street ~20 min antes.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~15h00</div><div class="ti-title">🚀 Space Mountain</div><div class="ti-desc">Montanha-russa clássica no escuro! Tomorrowland. Fila ~40 min.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~16h00</div><div class="ti-title">⚡ TRON Lightcycle / Run</div><div class="ti-desc">A mais nova e popular! Tomorrowland. Fila 90+ min — vá o mais cedo possível ou tente no final do dia quando a fila diminui.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~17h00</div><div class="ti-title">🚢 Jungle Cruise (opcional)</div><div class="ti-desc">Barco com piadas do capitão — clássico e divertido! Adventureland. ~20 min de fila. Se estiverem cansados, pulem e vão direto pro Hub guardar lugar pros fogos.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~18h30</div><div class="ti-title">📍 Caminhar até o Hub — frente do castelo</div><div class="ti-desc">Hora de ir pro Hub/Main Street! Escolham um bom spot na frente do castelo. Chegar AGORA = ~1h30 antes dos fogos. Sentem, descansem, curtam o clima.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~19h00</div><div class="ti-title">🍓 Sleepy Hollow — FUNNEL CAKE!</div><div class="ti-desc">Liberty Square, pertinho do Hub! Parte do grupo guarda o lugar, o resto vai ao Sleepy Hollow buscar: Funnel Cake with Strawberry Sauce — O DOCE IMPERDÍVEL DO MK! Trazem pro grupo enquanto esperam os fogos. Também tem waffle sandwiches salgados se quiserem algo mais substancial.</div></div>
+  <div class="ti"><div class="dot dot-show"></div><div class="ti-time">~20h00 – 20h30</div><div class="ti-title">🎆 Happily Ever After — Show de fogos!</div><div class="ti-desc">Projeção no Castelo + fogos. O MELHOR show da Disney! Horário exato: cheque no app.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~21h00</div><div class="ti-title">🍕 Pizza no caminho de casa!</div><div class="ti-desc">Saiam do MK e peguem pizza no caminho. Peçam pelo app enquanto saem do parque — cheguem e retirem!</div></div>
+</div>
+<div class="box box-food"><strong>🍕 Pizza — Flippers Pizzeria (recomendado!)</strong>7233 W Sand Lake Rd, Orlando (~20 min do MK). New York style, fatias enormes! Peçam 2-3 pizzas grandes pra 6. ~$12-15/pessoa.</div>
+<div class="box box-food"><strong>🍕 Pizza — Pizza Hut (mais rápido/barato)</strong>4647 W Irlo Bronson Hwy, Kissimmee (~10 min da casa). Peçam online no caminho. ~$8-12/pessoa. Promoções boas pra grupos!</div>
+<div class="box box-tip"><strong>💡 Sem jantar no parque!</strong>Neste dia não comam refeição no parque — economizem. Funnel Cake + snacks à tarde/noite, e pizza em casa depois. Quick service no MK é caro e medíocre pra 6 pessoas.</div>
+
+<div class="box box-tip"><strong>💡 Transporte MK</strong>Estacionamento no TTC. Ferry (~10 min, cênico) ou Monorail (~5 min). Na volta o ferry tem menos fila.</div>
+<div class="box box-tip"><strong>💡 Parada noturna</strong>Cheque no app se há parada noturna (Main Street Electrical Parade). Se tiver, assistam depois dos fogos!</div>
+</div></div></div>
+
+<!-- ========== DIA 5 — 14/04 TER — OUTLET ========== -->
+<div class="day-card" id="d5">
+<div class="day-header" onclick="t('d5')">
+  <div class="day-badge bg-shop"><span>14/04</span><span class="num">D5</span></div>
+  <div class="day-info"><div class="day-title">🛍️ Outlet — Dia 1</div><div class="day-sub">Terça • Acordar 08h30 • Sair 09h30 • Descanso</div></div>
+  <div class="day-dist">🚗 ~15 min</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~10h00</div><div class="ti-title">🛍️ Orlando Vineland Premium Outlets</div><div class="ti-desc">8200 Vineland Ave, Orlando (~15 min, 13 km). O melhor outlet! Garagem coberta. Abre 10h, fecha 21h. Terça = mais vazio. Guest Services: coupon book (leve passaporte!).</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">10h – 13h</div><div class="ti-title">Compras — turno da manhã</div><div class="ti-desc">Foco: Nike, Adidas, Tommy, Coach, Kate Spade, Under Armour, Disney Store (Character Warehouse!), Levi's, GAP, Bath & Body Works.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~13h00</div><div class="ti-title">🍽️ Almoço</div><div class="ti-desc">Praça de alimentação do outlet ou Red Lobster (5690 W Irlo Bronson, ~10 min).</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~14h30</div><div class="ti-title">🛍️ Orlando International Premium Outlets</div><div class="ti-desc">4951 International Dr, Orlando (~20 min do Vineland, 20 km da casa). 180+ lojas! Saks Off 5th, Neiman Marcus Last Call. Ao ar livre.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~17h00</div><div class="ti-title">🎯 Target</div><div class="ti-desc">4795 W Irlo Bronson Memorial Hwy, Kissimmee (~12 min da casa). Roupas bonitas e baratas, acessórios, e seção de maquiagem/skincare incrível (e.l.f., NYX, Maybelline, CeraVe, La Roche-Posay — MUITO mais barato que no Brasil!). Fecha 23h.</div></div>
+</div>
+<div class="box box-food"><strong>🍽️ Jantar — Buca di Beppo</strong>Celebration (~15 min da casa). Italiano family-style, porções ENORMES pra dividir entre 6! ~$18-25/pessoa.</div>
+<div class="box box-tip"><strong>💡 Dica</strong>Descansem bem! Amanhã é Animal Kingdom.</div>
+</div></div></div>
+
+<!-- ========== DIA 6 — 15/04 QUA — ANIMAL KINGDOM ========== -->
+<div class="day-card" id="d6">
+<div class="day-header" onclick="t('d6')">
+  <div class="day-badge bg-ak"><span>15/04</span><span class="num">D6</span></div>
+  <div class="day-info"><div class="day-title">🦁 Disney's Animal Kingdom</div><div class="day-sub">Quarta • Acordar 06h30 • Sair 07h15</div></div>
+  <div class="day-dist">🚗 ~20 min</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~07h15</div><div class="ti-title">Saída de casa</div><div class="ti-desc">Animal Kingdom abre 8h. Casa → AK: ~20 min (20 km). Safari e Pandora lotam rápido!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">08h00</div><div class="ti-title">🦒 Kilimanjaro Safaris — PRIORIDADE #1!</div><div class="ti-desc">Safari com animais reais (~20 min). Animais MUITO mais ativos de manhã! Área Africa. Vá direto.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~08h45</div><div class="ti-title">🏔️ Expedition Everest</div><div class="ti-desc">Montanha-russa do Yeti — vai pra frente e pra trás! Área Asia.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~09h30</div><div class="ti-title">💦 Kali River Rapids</div><div class="ti-desc">Bote em corredeiras — MOLHA BASTANTE! Área Asia, pertinho do Everest.</div></div>
+  <div class="ti"><div class="dot dot-photo"></div><div class="ti-time">~10h15</div><div class="ti-title">📸 Adventurers Outpost (Mickey & Minnie)</div><div class="ti-desc">Foto com Mickey e Minnie em traje de safári! Cheque no app.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~11h45</div><div class="ti-title">🦊 Zootopia: Better Zoogether</div><div class="ti-desc">Atração nova! Trackless ride com animatrônicos incríveis.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~12h30</div><div class="ti-title">🍽️ Almoço (opcional — não recomendado!)</div><div class="ti-desc">Levem lanches de casa e comam na fila ou num lugar bonito (Pandora, Flame Tree com vista pro lago). Se quiserem comprar: Satu'li Canteen (Pandora — bowls) ou Flame Tree Barbecue.</div></div>
+  <div class="ti"><div class="dot dot-show"></div><div class="ti-time">~13h30</div><div class="ti-title">🎭 Festival of the Lion King</div><div class="ti-desc">Show musical do Rei Leão (~30 min). Um dos melhores da Disney!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~14h30</div><div class="ti-title">🌋 Avatar Flight of Passage</div><div class="ti-desc">MELHOR ATRAÇÃO DO PARQUE! Fila 2h+ depois das 10h — entre na fila virtual pelo app se disponível.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~16h00</div><div class="ti-title">🌊 Na'vi River Journey</div><div class="ti-desc">Passeio de barco calmo por Pandora. Animatrônico final impressionante.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~17h – 18h30</div><div class="ti-title">✨ Pandora ao entardecer</div><div class="ti-desc">Pandora fica INCRÍVEL bioluminescente quando escurece! Tirem muitas fotos.</div></div>
+</div>
+<div class="box box-food"><strong>🍔 Jantar — Shake Shack</strong>8359 International Dr, Orlando (ICON Park, ~25 min da casa). ShackBurger + fries + frozen custard. ~$15-20/pessoa. Abre até meia-noite.</div>
+<div class="box box-food"><strong>🍔 Alternativa — Five Guys</strong>3261 Vineland Rd, Kissimmee (~15 min da casa). Cajun fries enormes! ~$15-18/pessoa.</div>
+</div></div></div>
+
+<!-- ========== DIA 7 — 16/04 QUI — ISLANDS ========== -->
+<div class="day-card" id="d7">
+<div class="day-header" onclick="t('d7')">
+  <div class="day-badge bg-ioa"><span>16/04</span><span class="num">D7</span></div>
+  <div class="day-info"><div class="day-title">🏝️ Islands of Adventure</div><div class="day-sub">Quinta • Acordar 06h30 • Sair 08h15</div></div>
+  <div class="day-dist">🚗 ~25 min</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~08h15</div><div class="ti-title">Saída de casa</div><div class="ti-desc">6000 Universal Blvd (~25 min, 27 km). Estacionamento ~$30.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">09h00</div><div class="ti-title">🦖 VelociCoaster — PRIORIDADE #1!</div><div class="ti-desc">Uma das melhores montanhas-russas do MUNDO! Vá direto na abertura!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~10h00</div><div class="ti-title">🏍️ Hagrid's Motorbike Adventure</div><div class="ti-desc">Montanha-russa HP na moto! Hogsmeade.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~11h00</div><div class="ti-title">🏰 HP: Forbidden Journey (Castelo)</div><div class="ti-desc">Simulador dentro de Hogwarts. A fila pelo castelo já é atração!</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~11h45</div><div class="ti-title">🍺 Butterbeer + Cinnabon</div><div class="ti-desc">Frozen Butterbeer (~$9)! Cinnabon: Port of Entry, lado direito.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~12h30</div><div class="ti-title">🦍 Skull Island: Reign of Kong</div><div class="ti-desc">Simulador 3D King Kong. Fila anda rápido.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~14h00</div><div class="ti-title">🕷️ Spider-Man — Simulador 3D</div><div class="ti-desc">Clássico! Marvel Super Hero Island.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~14h45</div><div class="ti-title">💚 Hulk Coaster</div><div class="ti-desc">Lançamento catapulta! Muito intensa.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~15h30 – 18h</div><div class="ti-title">Hogsmeade + repetir favoritas</div><div class="ti-desc">Explore lojas, tome mais Butterbeer!</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~18h30</div><div class="ti-title">🍩 CityWalk — Doces!</div><div class="ti-desc">Voodoo Doughnut: donuts artesanais malucos! Toothsome Chocolate Emporium: milkshakes enormes (~$16) e loja de chocolates. Dá pra pegar milkshake no balcão sem esperar mesa!</div></div>
+</div>
+<div class="box box-food"><strong>🍽️ Jantar livre no CityWalk!</strong>Cada um escolhe o que quiser! Opções: Burger King, Panda Express, Bread Box (sanduíches), Moe's Southwest Grill, Hot Dog Hall of Fame, ou os próprios Voodoo Doughnut + Toothsome. Preço médio ~$12-18/pessoa. Mais prático pra 6 pessoas — sem esperar mesa!</div>
+<div class="box box-tip"><strong>💡 CityWalk</strong>Não precisa ingresso! Voodoo Doughnut é imperdível. Toothsome tem loja separada com chocolates pra comprar.</div>
+</div></div></div>
+
+<!-- ========== DIA 8 — 17/04 SEX — UNIVERSAL STUDIOS ========== -->
+<div class="day-card" id="d8">
+<div class="day-header" onclick="t('d8')">
+  <div class="day-badge bg-usf"><span>17/04</span><span class="num">D8</span></div>
+  <div class="day-info"><div class="day-title">🎬 Universal Studios Florida</div><div class="day-sub">Sexta • Acordar 06h30 • Sair 08h30</div></div>
+  <div class="day-dist">🚗 ~25 min</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~08h30</div><div class="ti-title">Saída de casa</div><div class="ti-desc">Universal Studios abre 10h (sex). Mesmo estacionamento (~$30).</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">10h00</div><div class="ti-title">⚡ HP: Escape from Gringotts — PRIORIDADE!</div><div class="ti-desc">Simulador 3D + montanha-russa no Gringotts. Beco Diagonal. Vá direto!</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~10h45</div><div class="ti-title">🏦 Explore o Beco Diagonal</div><div class="ti-desc">Ollivanders (varinha interativa), dragão cuspe fogo (~cada 15 min!), lojas temáticas.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~11h30</div><div class="ti-title">🧟 Revenge of the Mummy</div><div class="ti-desc">Montanha-russa indoor no escuro! Uma das melhores.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~12h15</div><div class="ti-title">🏎️ Fast & Furious: Supercharged</div><div class="ti-desc">Simulador Velozes e Furiosos.</div></div>
+  <div class="ti"><div class="dot dot-show"></div><div class="ti-time">~12h45</div><div class="ti-title">🎬 The Bourne Stuntacular — IMPERDÍVEL!</div><div class="ti-desc">O MELHOR show ao vivo do Universal! Stunts reais combinados com telas LED gigantes e efeitos especiais absurdos. ~20 min. Ótimo pra fazer depois do almoço/lanche — sentem, relaxem e façam a digestão! Vários horários durante o dia (cheque no app — geralmente a cada 30-45 min). Fica na área de Hollywood, perto do Mel's Diner. NÃO PERCAM!</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~13h15</div><div class="ti-title">🍽️ Almoço (opcional — não recomendado!)</div><div class="ti-desc">Levem lanches de casa e comam na fila ou num cantinho bonito. Se quiserem comprar: Leaky Cauldron (Beco Diagonal — comida britânica!) ou Springfield.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~14h00</div><div class="ti-title">🤖 Transformers: The Ride 3D</div><div class="ti-desc">Simulador intenso! Production Central.</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~14h45</div><div class="ti-title">🍩 The Simpsons Ride</div><div class="ti-desc">Springfield! Coma um donut gigante do Lard Lad Donuts na saída!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~15h30</div><div class="ti-title">🔫 MEN IN BLACK: Alien Attack</div><div class="ti-desc">Tiro interativo — compita por pontos!</div></div>
+  <div class="ti"><div class="dot dot-ride"></div><div class="ti-time">~16h15</div><div class="ti-title">📺 Jimmy Fallon</div><div class="ti-desc">Simulador 3D. Fila virtual — retire senha no app.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~17h – 19h</div><div class="ti-title">E.T. Adventure + compras + repetir</div><div class="ti-desc">E.T. é clássico! Explore Beco Diagonal, compre lembranças.</div></div>
+</div>
+<div class="box box-food"><strong>🍽️ Jantar — Giordano's</strong>6203 W Sand Lake Rd (~20 min). Deep dish pra dividir entre 6 — peçam 40 min antes! ~$20-25/pessoa.</div>
+</div></div></div>
+
+<!-- ========== DIA 9 — 18/04 SÁB — OUTLET 2 + COMPRAS FINAIS ========== -->
+<div class="day-card" id="d9">
+<div class="day-header" onclick="t('d9')">
+  <div class="day-badge bg-shop"><span>18/04</span><span class="num">D9</span></div>
+  <div class="day-info"><div class="day-title">🛍️ Outlet Dia 2 + Compras Finais + Disney Springs</div><div class="day-sub">Sábado • Acordar 08h30 • Sair 09h30 • Último dia cheio</div></div>
+  <div class="day-dist">🚗 ~15 min</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~10h00</div><div class="ti-title">🛍️ Completar outlet que faltou</div><div class="ti-desc">Voltem ao Vineland (8200 Vineland Ave, ~15 min) ou ao International (4951 International Dr, ~20 min).</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~12h00</div><div class="ti-title">🛍️ Lake Buena Vista Factory Stores</div><div class="ti-desc">15657 S Apopka Vineland Rd, Orlando (~18 min da casa). Disney Character Warehouse! Preços mais baixos, menos turistas.</div></div>
+  <div class="ti"><div class="dot dot-food"></div><div class="ti-time">~13h00</div><div class="ti-title">🍽️ Almoço</div><div class="ti-desc">Earl of Sandwich (Disney Springs) ou Red Lobster (5690 W Irlo Bronson, ~12 min).</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~14h30</div><div class="ti-title">🛒 Walmart + Target (compras finais)</div><div class="ti-desc">Walmart 3250 Vineland Rd (~12 min) — lembrancinhas, malas extras. Target: 3200 Rolling Oaks Blvd (~15 min).</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~16h30</div><div class="ti-title">🏰 Disney Springs — Tour final</div><div class="ti-desc">World of Disney, Amorette's, Vivoli il Gelato (último Bomboloni!). Lembrancinhas finais.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~19h00</div><div class="ti-title">🏠 Voltar — Arrumar malas</div><div class="ti-desc">Finalizem malas, pesem tudo, organizem documentos!</div></div>
+</div>
+<div class="box box-tip"><strong>💡 Malas!</strong>Pesem tudo — limite ~23 kg/mala. Walmart vende malas extras (~$30-50) e balanças de mão (~$10). Comprem snacks pro avião.</div>
+</div></div></div>
+
+<!-- ========== DIA 10 — 19/04 DOM — RETORNO ========== -->
+<div class="day-card" id="d10">
+<div class="day-header" onclick="t('d10')">
+  <div class="day-badge bg-return"><span>19/04</span><span class="num">D10</span></div>
+  <div class="day-info"><div class="day-title">✈️ Retorno ao Brasil</div><div class="day-sub">Domingo • Check-out + aeroporto MCO</div></div>
+  <div class="day-dist">🚗 ~25 min</div><div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<div class="tl">
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">Manhã</div><div class="ti-title">Check-out + últimas paradas</div><div class="ti-desc">Abasteça o carro (tanque cheio — exigido pela locadora). Confira malas e documentos.</div></div>
+  <div class="ti"><div class="dot dot-go"></div><div class="ti-time">~3h antes do voo</div><div class="ti-title">✈️ Aeroporto MCO</div><div class="ti-desc">Casa → MCO: ~25 min. Chegue 3h antes (voo internacional). Devolver carro. Duty free no MCO.</div></div>
+</div>
+<div class="box box-tip"><strong>💡 Dica final</strong>Na Flórida NÃO existe tax refund. Imposto ~6.5% é definitivo. Gastem dólares em espécie no duty free!</div>
+</div></div></div>
+
+<!-- ========== GUIA RESTAURANTES ========== -->
+<div class="sep">Guia de Restaurantes & Doces</div>
+<div class="day-card" id="rest">
+<div class="day-header" onclick="t('rest')">
+  <div class="day-badge" style="background:linear-gradient(135deg,#f97316,#ea580c)"><span>🍽️</span><span class="num">REF</span></div>
+  <div class="day-info"><div class="day-title">Restaurantes + Doces (6 pessoas)</div><div class="day-sub">Foco em custo-benefício pra grupo grande</div></div>
+  <div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<h3 style="color:#f1f5f9;font-size:0.9rem;margin-top:12px">🍴 Restaurantes</h3>
+<div class="rest-grid">
+  <div class="rest-card"><div class="type">🦖 Temático</div><h4>T-Rex Cafe</h4><p>Disney Springs • 10/04 22h30<br>💰 ~$25-40/pessoa</p></div>
+  <div class="rest-card"><div class="type">🇮🇹 Family Style!</div><h4>Buca di Beppo</h4><p>Celebration • ~15 min<br>💰 ~$18-25/pessoa dividindo</p></div>
+  <div class="rest-card"><div class="type">🇮🇹 Ilimitado!</div><h4>Olive Garden</h4><p>1604 W Osceola Pkwy OU 8136 W Irlo Bronson<br>~10-15 min • 💰 ~$15-20/pessoa</p></div>
+  <div class="rest-card"><div class="type">🍕 Deep Dish</div><h4>Giordano's</h4><p>6203 W Sand Lake Rd • ~20 min<br>💰 ~$20-25/pessoa • Peça 40 min antes!</p></div>
+  <div class="rest-card"><div class="type">🍕 NY Style</div><h4>Flippers Pizzeria</h4><p>7233 W Sand Lake Rd • ~20 min<br>💰 ~$12-15/pessoa • Pra levar pra casa!</p></div>
+  <div class="rest-card"><div class="type">🍔 Burger</div><h4>Five Guys</h4><p>3261 Vineland Rd • ~15 min<br>💰 ~$15-18/pessoa</p></div>
+  <div class="rest-card"><div class="type">🍔 Gourmet</div><h4>Shake Shack</h4><p>8359 International Dr • ~25 min<br>💰 ~$15-20/pessoa</p></div>
+  <div class="rest-card"><div class="type">🥪 Rápido</div><h4>Earl of Sandwich</h4><p>Disney Springs<br>💰 ~$10-15/pessoa</p></div>
+</div>
+<h3 style="color:#f1f5f9;font-size:0.9rem;margin-top:20px">🍩 Doces Imperdíveis</h3>
+<div class="rest-grid">
+  <div class="rest-card"><h4>🍩 Krispy Kreme</h4><p>4080 Millenia Blvd • 6h–22h (sex-sáb 23h)</p></div>
+  <div class="rest-card"><h4>🍩 Voodoo Doughnut</h4><p>Universal CityWalk • Donuts artesanais!</p></div>
+  <div class="rest-card"><h4>🍫 Toothsome Chocolate</h4><p>Universal CityWalk • Milkshakes + loja!</p></div>
+  <div class="rest-card"><h4>🎂 Amorette's</h4><p>Disney Springs • Mouse Cake!</p></div>
+  <div class="rest-card"><h4>🍦 Vivoli il Gelato</h4><p>Disney Springs • BOMBOLONI! (~$5.80)</p></div>
+  <div class="rest-card"><h4>🍓 Sleepy Hollow</h4><p>MK Liberty Square • Funnel Cake!</p></div>
+  <div class="rest-card"><h4>🍩 Lard Lad Donuts</h4><p>Universal Studios Springfield</p></div>
+  <div class="rest-card"><h4>🍩 Cinnabon</h4><p>Islands of Adventure • Port of Entry</p></div>
+</div>
+</div></div></div>
+
+<!-- ========== GUIA COMPRAS ========== -->
+<div class="sep">Guia de Compras</div>
+<div class="day-card" id="shops">
+<div class="day-header" onclick="t('shops')">
+  <div class="day-badge bg-shop"><span>🛍️</span><span class="num">REF</span></div>
+  <div class="day-info"><div class="day-title">Outlets, Lojas & Supermercados</div><div class="day-sub">Endereços completos e distâncias da casa</div></div>
+  <div class="arrow">▼</div>
+</div>
+<div class="day-content"><div class="day-body">
+<h3 style="color:#f1f5f9;font-size:0.9rem;margin-top:12px">🛍️ Outlets</h3>
+<div class="rest-grid">
+  <div class="rest-card"><div class="type">⭐ Principal</div><h4>Orlando Vineland Premium Outlets</h4><p>8200 Vineland Ave, Orlando<br>🚗 ~15 min (13 km) • Garagem coberta!<br>Seg-Sáb 10h–21h • Dom 11h–19h</p></div>
+  <div class="rest-card"><div class="type">⭐ 2º maior</div><h4>Orlando International Premium Outlets</h4><p>4951 International Dr, Orlando<br>🚗 ~20 min (20 km) • 180+ lojas!<br>Seg-Sáb 10h–21h • Dom 11h–19h</p></div>
+  <div class="rest-card"><div class="type">💰 Mais barato</div><h4>Lake Buena Vista Factory Stores</h4><p>15657 S Apopka Vineland Rd, Orlando<br>🚗 ~18 min (16 km) • Character Warehouse!<br>Seg-Sáb 10h–21h • Dom 10h–19h</p></div>
+</div>
+<h3 style="color:#f1f5f9;font-size:0.9rem;margin-top:20px">⭐ Melhores Lojas do Outlet (prioridade!)</h3>
+<div class="rest-grid">
+  <div class="rest-card"><div class="type">👟 Tênis & Esporte</div><h4>Nike Factory Store</h4><p>Vineland Outlet • A MAIOR e melhor Nike outlet de Orlando! Tênis 40-60% off. Vá primeiro — lotam rápido. Adidas e Under Armour também valem.</p></div>
+  <div class="rest-card"><div class="type">👜 Bolsas & Acessórios</div><h4>Coach Outlet + Kate Spade</h4><p>Vineland Outlet • Bolsas com até 70% off! Coach tem as melhores ofertas. Kate Spade: carteiras e bolsas coloridas lindas.</p></div>
+  <div class="rest-card"><div class="type">👕 Roupas</div><h4>Tommy Hilfiger + GAP + Levi's</h4><p>Vineland e International • Tommy: polos e jeans. GAP: básico barato. Levi's: jeans por ~$30-50 (no Brasil R$400+).</p></div>
+  <div class="rest-card"><div class="type">🏷️ Perfumes & Cosméticos</div><h4>Bath & Body Works</h4><p>Vineland Outlet • Cremes, sabonetes, velas e sprays corporais. Promoções "Buy 3, Get 3 Free"! Cheirosos e baratos — ótimo pra presente.</p></div>
+  <div class="rest-card"><div class="type">🧸 Disney Barato!</div><h4>Disney Character Warehouse</h4><p>Vineland Outlet + Lake Buena Vista • Produtos Disney originais com até 75% off! Camisetas, canecas, pins, orelhinhas por metade do preço dos parques.</p></div>
+  <div class="rest-card"><div class="type">🕶️ Luxo com Desconto</div><h4>Saks Off 5th + Neiman Marcus Last Call</h4><p>International Outlet • Marcas premium (Michael Kors, Ralph Lauren, Calvin Klein) com 60-80% off. Óculos de sol de marca baratos!</p></div>
+</div>
+<h3 style="color:#f1f5f9;font-size:0.9rem;margin-top:20px">💄 Onde Comprar Maquiagem & Beleza (sem shopping!)</h3>
+<div class="rest-grid">
+  <div class="rest-card"><div class="type">💰 Maquiagem barata!</div><h4>Target — Seção de beleza</h4><p>4795 W Irlo Bronson Hwy, ~12 min<br>e.l.f., Maybelline, L'Oréal, NYX, CeraVe, La Roche-Posay — MUITO mais barato que no Brasil! Seção enorme de skincare e maquiagem drugstore. Melhor custo-benefício!</p></div>
+  <div class="rest-card"><div class="type">💰 Maquiagem no Walmart!</div><h4>Walmart — Seção de beleza</h4><p>4444 W Vine St ou 3250 Vineland Rd<br>NYX, Maybelline, L'Oréal, CeraVe, Neutrogena, Wet n Wild. Preços ainda mais baixos que Target! Ótimo pra comprar em quantidade.</p></div>
+  <div class="rest-card"><div class="type">🏷️ Marcas com desconto!</div><h4>Ross Dress for Less</h4><p>4893 W Irlo Bronson Hwy, ~12 min<br>Seção de beleza com marcas premium (perfumes, maquiagem, skincare) com 20-60% off! Achados surpresa — vale garimpar.</p></div>
+  <div class="rest-card"><div class="type">🧴 Skincare & Corpo</div><h4>Bath & Body Works</h4><p>Vineland Outlet + Orlando Int'l Outlet<br>Cremes, body mist, sabonetes. Promoções "Buy 3, Get 3 Free"! Ótimo pra presente.</p></div>
+  <div class="rest-card"><div class="type">🏪 Farmácia americana</div><h4>CVS / Walgreens</h4><p>Várias locações em Kissimmee<br>CeraVe, Neutrogena, Aveeno, La Roche-Posay, Maybelline, NYX — tudo por fração do preço BR.</p></div>
+  <div class="rest-card"><div class="type">🛍️ No próprio outlet!</div><h4>Cosmetics Company Store</h4><p>Vineland Premium Outlets<br>Outlet oficial de marcas como Estée Lauder, MAC, Clinique, Bobbi Brown — até 60% off! Procurem também a Perfumania (perfumes) dentro dos outlets.</p></div>
+</div>
+<h3 style="color:#f1f5f9;font-size:0.9rem;margin-top:20px">🛒 Supermercados & Lojas</h3>
+<div class="rest-grid">
+  <div class="rest-card"><h4>🛒 Walmart — W Vine St</h4><p>4444 W Vine St, Kissimmee • ~10 min • 23h</p></div>
+  <div class="rest-card"><h4>🛒 Walmart — Vineland Rd</h4><p>3250 Vineland Rd, Kissimmee • ~12 min • 0h</p></div>
+  <div class="rest-card"><h4>🎯 Target — W Irlo Bronson</h4><p>4795 W Irlo Bronson Hwy • ~12 min • 23h</p></div>
+  <div class="rest-card"><h4>🎯 Target — Rolling Oaks</h4><p>3200 Rolling Oaks Blvd • ~15 min • 23h</p></div>
+  <div class="rest-card"><h4>🛍️ TJ Maxx</h4><p>2551 Osceola Pkwy • ~10 min • 21h30</p></div>
+  <div class="rest-card"><h4>🛍️ Ross Dress for Less</h4><p>4893 W Irlo Bronson Hwy • ~12 min • 22h</p></div>
+</div>
+</div></div></div>
+
+<!-- ========== RESUMO ========== -->
+<div class="sep">Resumo da Distribuição</div>
+<div style="background:#111827;border:1px solid #1e293b;border-radius:14px;padding:20px;margin-bottom:20px">
+<table style="width:100%;border-collapse:collapse;font-size:0.82rem">
+<tr style="border-bottom:1px solid #1e293b"><td style="padding:8px;color:#64748b;font-weight:600">DATA</td><td style="padding:8px;color:#64748b;font-weight:600">DIA</td><td style="padding:8px;color:#64748b;font-weight:600">PROGRAMAÇÃO</td><td style="padding:8px;color:#64748b;font-weight:600;text-align:right">ACORDAR</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#f59e0b;font-weight:600">10/04 Sex</td><td style="padding:8px;color:#94a3b8">D1</td><td style="padding:8px;color:#e2e8f0">✈️ Chegada + Walmart + TJ + Millenia + Disney Springs</td><td style="padding:8px;color:#94a3b8;text-align:right">—</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#0284c7;font-weight:600">11/04 Sáb</td><td style="padding:8px;color:#94a3b8">D2</td><td style="padding:8px;color:#e2e8f0">🐬 SeaWorld Orlando</td><td style="padding:8px;color:#94a3b8;text-align:right">06h30</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#dc2626;font-weight:600">12/04 Dom</td><td style="padding:8px;color:#94a3b8">D3</td><td style="padding:8px;color:#e2e8f0">🌟 Epic Universe + Five Guys + Krispy Kreme</td><td style="padding:8px;color:#94a3b8;text-align:right">06h30</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#7c3aed;font-weight:600">13/04 Seg</td><td style="padding:8px;color:#94a3b8">D4</td><td style="padding:8px;color:#e2e8f0">🏰 Magic Kingdom + Funnel Cake + pizza em casa 🍕</td><td style="padding:8px;color:#94a3b8;text-align:right">06h30</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#10b981;font-weight:600">14/04 Ter</td><td style="padding:8px;color:#94a3b8">D5</td><td style="padding:8px;color:#e2e8f0">🛍️ Outlets + Target (descanso)</td><td style="padding:8px;color:#94a3b8;text-align:right">08h30</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#059669;font-weight:600">15/04 Qua</td><td style="padding:8px;color:#94a3b8">D6</td><td style="padding:8px;color:#e2e8f0">🦁 Animal Kingdom + Shake Shack</td><td style="padding:8px;color:#94a3b8;text-align:right">06h30</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#ea580c;font-weight:600">16/04 Qui</td><td style="padding:8px;color:#94a3b8">D7</td><td style="padding:8px;color:#e2e8f0">🏝️ Islands of Adventure + CityWalk doces</td><td style="padding:8px;color:#94a3b8;text-align:right">06h30</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#d97706;font-weight:600">17/04 Sex</td><td style="padding:8px;color:#94a3b8">D8</td><td style="padding:8px;color:#e2e8f0">🎬 Universal Studios Florida</td><td style="padding:8px;color:#94a3b8;text-align:right">06h30</td></tr>
+<tr style="border-bottom:1px solid #1a2030"><td style="padding:8px;color:#10b981;font-weight:600">18/04 Sáb</td><td style="padding:8px;color:#94a3b8">D9</td><td style="padding:8px;color:#e2e8f0">🛍️ Outlets + Disney Springs + arrumar malas</td><td style="padding:8px;color:#94a3b8;text-align:right">08h30</td></tr>
+<tr><td style="padding:8px;color:#64748b;font-weight:600">19/04 Dom</td><td style="padding:8px;color:#94a3b8">D10</td><td style="padding:8px;color:#e2e8f0">✈️ Retorno ao Brasil</td><td style="padding:8px;color:#94a3b8;text-align:right">Voo</td></tr>
+</table>
+</div>
+
+</div>
+<div class="footer">
+  Roteiro gerado em Março 2026 • Horários podem variar — confirme nos apps oficiais<br>
+  📱 My Disney Experience • Universal Orlando App • SeaWorld App<br><br>
+  Boa viagem, Paolo, Karol, Sayo, Marcos, Fefe & Ro! 🎢✨
+</div>
+<script>function t(id){document.getElementById(id).classList.toggle('open')}</script>
+</body>
+</html>
